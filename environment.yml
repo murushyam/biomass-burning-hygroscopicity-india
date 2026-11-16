@@ -1,0 +1,25 @@
+# Conda environment for the planned analysis. Versions are unpinned at the proposal stage.
+name: hygro-india
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.11
+  - numpy
+  - xarray
+  - netCDF4
+  - pyhdf
+  - h5py
+  - pandas
+  - scipy
+  - statsmodels
+  - scikit-learn
+  - matplotlib
+  - cartopy
+  - pyyaml
+  - tqdm
+  - jupyter
+  - pip
+  - pip:
+      - miepython
+      - PyMieScatt

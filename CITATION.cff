@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: If you use this repository, please cite the proposal below. A DOI will be added after the archive is published.
+title: "Does the hygroscopicity of biomass-burning aerosol over India change with altitude? A constraint from CALIOP and ERA5 humidograms, 2006 to 2023"
+type: software
+authors:
+  - family-names: Murugesan Sellammal
+    given-names: Shyam Sunder
+    orcid: "https://orcid.org/0000-0002-9964-6199"
+    affiliation: "National Institute of Technology Rourkela"
+license: MIT
+repository-code: "https://github.com/murushyam/biomass-burning-hygroscopicity-india"
+keywords:
+  - aerosol
+  - hygroscopicity
+  - CCN
+  - CALIOP
+  - ERA5
+  - biomass burning
+  - India
+# doi:  # add after the Zenodo (or equivalent) archive

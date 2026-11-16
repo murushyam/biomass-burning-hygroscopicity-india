@@ -1,0 +1,20 @@
+# Scientific stack for the planned CALIOP-ERA5 hygroscopicity analysis.
+# Versions are left unpinned at the proposal stage.
+# pyhdf needs the HDF4 C library; if that build fails, h5py still covers HDF5 products.
+# Install one Mie package (miepython or PyMieScatt); both are listed so either can be used.
+numpy
+xarray
+netCDF4
+pyhdf
+h5py
+pandas
+scipy
+statsmodels
+scikit-learn
+matplotlib
+cartopy
+pyyaml
+tqdm
+miepython
+PyMieScatt
+jupyter

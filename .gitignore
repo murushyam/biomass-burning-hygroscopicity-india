@@ -1,0 +1,76 @@
+# Byte-compiled / optimized / C extensions
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments and packaging
+.Python
+.venv/
+venv/
+env/
+.env
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Editors and OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Testing, typing, coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Scientific data and derived products (not committed)
+# Keep directory placeholders; ignore downloaded and derived files.
+data/raw/*
+!data/raw/.gitkeep
+data/derived/*
+!data/derived/.gitkeep
+outputs/
+*.nc
+*.nc4
+*.hdf
+*.hdf4
+*.hdf5
+*.h5
+*.he5
+*.grib
+*.grib2
+*.zarr
+**/*.zarr/
+
+# Large or local result artefacts
+results/*.png
+results/*.pdf
+results/*.csv
+results/*.nc
+*.log
