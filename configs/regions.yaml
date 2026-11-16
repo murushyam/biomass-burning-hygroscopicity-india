@@ -1,0 +1,56 @@
+# Study domain, sub-regions and seasons from Section 6 of docs/proposal.md.
+# The overall domain is taken from the proposal. Exact sub-region bounding boxes
+# are design choices (D) and will be frozen after the pilot in docs/protocol.md.
+
+domain:
+  lat_min_deg_n: 5.0
+  lat_max_deg_n: 37.0
+  lon_min_deg_e: 67.0
+  lon_max_deg_e: 98.0
+  mask: "Land and coastal cells over India only."
+
+# Qualitative extents from the proposal. bounds are left null until the pilot.
+subregions:
+  - id: nw_igp
+    name: North-western Indo-Gangetic Plain
+    description: "Punjab, Haryana and western Uttar Pradesh, the post-monsoon crop-residue source and its downwind plume."
+    bounds: null
+  - id: central_eastern_igp
+    name: Central and eastern Indo-Gangetic Plain
+    description: "Eastern Uttar Pradesh and Bihar, where the AERONET sites Kanpur and Gandhi_College are located."
+    bounds: null
+  - id: central_northeast_india
+    name: Central and north-east India
+    description: "The pre-monsoon forest-fire region."
+    bounds: null
+  - id: peninsular_india
+    name: Peninsular India
+    description: "A contrast region with fewer smoke events."
+    bounds: null
+
+# Primary analysis excludes the monsoon; it is examined as a sensitivity case.
+seasons:
+  post_monsoon:
+    months: [10, 11]
+    label: "October to November"
+  pre_monsoon:
+    months: [3, 4, 5]
+    label: "March to May"
+  winter:
+    months: [12, 1, 2]
+    label: "December to February"
+  monsoon_sensitivity_only:
+    months: [6, 7, 8, 9]
+    label: "June to September"
+    role: sensitivity
+
+period:
+  product: "CALIOP version 5.00, the final release"
+  start: "2006-06"
+  end: "2023-06-30"
+  note: "The analysis uses the data period of the product, which ends on 30 June 2023."
+
+aeronet_sites:
+  - name: Kanpur
+  - name: Gandhi_College
+  - name: Jaipur

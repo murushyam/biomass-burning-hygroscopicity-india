@@ -1,0 +1,35 @@
+# Top-level analysis settings. Detailed thresholds live in the files listed below.
+# Starting values follow docs/proposal.md and are not frozen until the pilot.
+
+paths:
+  qc_thresholds: configs/qc_thresholds.yaml
+  regions: configs/regions.yaml
+  hysplit: configs/hysplit.yaml
+
+caliop:
+  primary_version: "V5.00"
+  sensitivity_version: "V4.51"
+  wavelength_nm: 532
+
+humidity:
+  primary: ERA5
+  secondary: "MERRA-2 Relative_Humidity in the CALIOP files"
+  rh_error_std_percent: 6  # D, from HYGRO19; pilot may replace this
+
+retrieval:
+  monte_carlo_draws: 1000
+  kappa_grid_min: 0.02
+  kappa_grid_max: 0.60
+  kappa_grid_basis: D
+
+ccn:
+  primary_supersaturation_percent: 0.3
+  supersaturations_percent: [0.1, 0.2, 0.3, 0.4, 0.5]
+
+statistics:
+  mixed_effects_alpha: 0.05
+  h1_effect_size_gamma: 0.15
+  h1_equivalence_margin: 0.10
+  h2_relative_dc_shift: 0.10
+  bootstrap_resamples: 5000
+  fdr_level: 0.05

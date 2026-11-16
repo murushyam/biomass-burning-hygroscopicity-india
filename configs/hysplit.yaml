@@ -1,0 +1,39 @@
+# Trajectory settings from Section 8.7 of docs/proposal.md.
+# The fire-exposure threshold that classes a layer as smoke is a design choice (D)
+# and will be set in the pilot, then recorded in docs/protocol.md.
+
+model: HYSPLIT
+meteorology: GDAS1
+trajectory_length_h: 120
+start_times: "Layer boundaries and centre, with an ensemble of start heights across the layer."
+references:
+  - "Stein et al. (2015)"
+  - "HYGRO19 and Navas-Guzmán et al. (2019)"
+
+fire_exposure:
+  sources:
+    - "FIRMS MODIS Collection 6.1"
+    - "FIRMS VIIRS 375 m"
+  confidence: "Nominal and high confidence"
+  match_radius_deg: 0.25
+  match_condition: "Counted when the trajectory lies below the ERA5 boundary-layer height."
+  index: "Fire radiative power weighted by residence time."
+  smoke_threshold: null  # set in the pilot (D)
+  aeronet_angstrom_min: 1.0
+  aeronet_spatial_window_km: 200
+  aeronet_temporal_window_days: 1
+  aeronet_criteria_basis: D
+
+smoke_age:
+  definition: "Time from the last trajectory contact with an active fire to the overpass."
+  bins_h: [24, 72]
+  bin_labels:
+    - "below 24 h"
+    - "24 to 72 h"
+    - "above 72 h"
+  note: "Trajectory error grows with time, so ages are reported with a range."
+
+sensitivity:
+  model: "FLEXPART 10.4"
+  meteorology: ERA5
+  role: "Second attribution for a subset of seasons (Pisso et al., 2019)."

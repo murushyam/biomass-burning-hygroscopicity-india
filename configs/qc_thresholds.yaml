@@ -1,0 +1,173 @@
+# Layer selection criteria from Table 2 of docs/proposal.md.
+# basis: P = taken from a cited source; D = design choice, to be tested and frozen by the pilot.
+# Selection is never made on the sign or size of gamma. Starting values are not frozen.
+
+criteria:
+  - id: 1
+    name: cloud_aerosol_discrimination
+    field: CAD_Score
+    value: "CAD_Score between -100 and -20. Stricter range -100 to -70 as sensitivity."
+    basis: P
+    source: "Tackett et al. (2018), Table 1. Sensitivity is D. CAD algorithm: Liu et al. (2019)."
+    cad_score_min: -100
+    cad_score_max: -20
+    sensitivity_cad_score_max: -70
+
+  - id: 2
+    name: extinction_quality_flag
+    field: Extinction_QC_Flag_532
+    value: "Extinction_QC_Flag_532 equal to 0 or 1."
+    basis: P
+    source: "P in part: Tackett et al. (2018) also keep 16 and 18. These are opaque-layer values, and the layer base is unconstrained, so they are dropped here (D)."
+    allowed_flags: [0, 1]
+
+  - id: 3
+    name: fill_and_special_values
+    value: "Extinction uncertainty of 99.9 km^-1 rejected. Backscatter flags -111, -333, -444 and fill -9999 rejected."
+    basis: P
+    source: "Tackett et al. (2018); NASA/LARC/SD/ASDC (2026)."
+    extinction_uncertainty_reject: 99.9
+    backscatter_flags_reject: [-111, -333, -444, -9999]
+
+  - id: 4
+    name: surface_proximity
+    value: "Samples at or below 60 m above ground rejected."
+    basis: P
+    source: "Tackett et al. (2018)."
+    min_height_above_ground_m: 60
+
+  - id: 5
+    name: cirrus_fringe
+    value: "Aerosol above 4 km above mean sea level in contact with ice cloud rejected."
+    basis: P
+    source: "Tackett et al. (2018)."
+    min_height_msl_km: 4.0
+
+  - id: 6
+    name: low_laser_energy
+    field: Low_Energy_Mitigation_Column_QC_Flag
+    value: "Columns flagged in Low_Energy_Mitigation_Column_QC_Flag rejected."
+    basis: D
+    source: "Flag semantics to be read from file metadata."
+
+  - id: 7
+    name: altitude
+    value: "Layer below 7 km."
+    basis: P
+    source: "Jing et al. (2026)."
+    max_layer_height_km: 7.0
+
+  - id: 8
+    name: thickness
+    value: "At least 300 m, which is at least 5 bins."
+    basis: P
+    source: "Jing et al. (2026)."
+    min_thickness_m: 300
+    min_bins: 5
+
+  - id: 9
+    name: minimum_backscatter
+    value: "Non-dust backscatter above 0.5 Mm^-1 sr^-1."
+    basis: P
+    source: "P for ground lidar: Jing et al. (2026). Transfer to CALIOP noise is D."
+    min_non_dust_backscatter_Mm_sr: 0.5
+
+  - id: 10
+    name: bin_uncertainty
+    value: "Relative backscatter uncertainty at most 30 %."
+    basis: D
+    source: "Bins noisier than this carry little weight in the fit. Pilot decides."
+    max_relative_backscatter_uncertainty: 0.30
+
+  - id: 11
+    name: monotonic_response
+    value: "beta increases with RH within the layer."
+    basis: P
+    source: "Jing et al. (2026)."
+
+  - id: 12
+    name: well_mixed_layer
+    value: "Potential temperature range below 2 K and water vapour mixing ratio range below 2 g kg^-1."
+    basis: P
+    source: "Granados-Muñoz et al. (2015); Jing et al. (2026); Sicard et al. (2022)."
+    max_potential_temperature_range_K: 2.0
+    max_water_vapour_mixing_ratio_range_g_kg: 2.0
+
+  - id: 13
+    name: air_mass_homogeneity
+    value: "Wind speed range below 2 m s^-1 and wind direction range below 15 deg across the layer (ERA5). Back-trajectory origins at layer base and top compared."
+    basis: P
+    source: "Jing et al. (2026) after Sicard et al. (2022). Trajectories: Díaz-Zurita et al. (2026)."
+    max_wind_speed_range_m_s: 2.0
+    max_wind_direction_range_deg: 15.0
+
+  - id: 14
+    name: reference_rh
+    value: "Lowest RH in the layer, at least 40 %. Enhancement reported on a 40 to 85 % range."
+    basis: P
+    source: "P for RH_ref definition and range: Díaz-Zurita et al. (2026). The 40 % floor is D."
+    rh_ref_floor_percent: 40
+    enhancement_rh_min_percent: 40
+    enhancement_rh_max_percent: 85
+
+  - id: 15
+    name: maximum_rh
+    value: "Below 90 %."
+    basis: D
+    source: "HYGRO19 reports growth up to 85 %, and reanalysis RH is least reliable near saturation."
+    max_rh_percent: 90
+
+  - id: 16
+    name: rh_range
+    value: "x = ln[(1 - RH_min)/(1 - RH_max)] at least 0.4, for example RH from 60 % to 73 %."
+    basis: D
+    source: "Pilot recovery tests on synthetic profiles set the final value."
+    min_x: 0.4
+
+  - id: 17
+    name: dust_screening
+    value: "Dust backscatter fraction f_d from the two-component depolarisation method, with particle depolarisation of 0.31 for dust and 0.05 for non-dust. Layer median f_d at most 0.2, which corresponds to a particle depolarisation near 0.09."
+    basis: P
+    source: "Tesche et al. (2009), as used by Choudhury and Tesche (2022). The 0.2 limit is D."
+    dust_depolarisation: 0.31
+    non_dust_depolarisation: 0.05
+    max_median_dust_fraction: 0.2
+
+  - id: 18
+    name: subtypes
+    value: "Polluted continental/smoke and elevated smoke accepted. Polluted dust only in sensitivity. Marine, dust, dusty marine and clean continental rejected."
+    basis: P
+    source: "Subtype codes from NASA/LARC/SD/ASDC (2026). Use of the label is a filter only."
+    accepted: ["polluted_continental_smoke", "elevated_smoke"]
+    sensitivity_only: ["polluted_dust"]
+    rejected: ["marine", "dust", "dusty_marine", "clean_continental"]
+
+  - id: 19
+    name: time_of_day
+    field: Day_Night_Flag
+    value: "Night-time profiles for the primary analysis. Daytime as a separate stratum."
+    basis: D
+    source: "Daytime solar noise raises CAD rejection (Tackett et al., 2018) and degrades depolarisation in weak layers by a factor of 2 to 4 (NASA/LARC/SD/ASDC, 2026)."
+    primary: "night"
+
+  - id: 20
+    name: overlying_optical_depth
+    value: "Optical depth above the layer base at most 1.0."
+    basis: D
+    source: "This keeps two-way transmission above 14 %."
+    max_overlying_optical_depth: 1.0
+
+  - id: 21
+    name: fit_quality
+    value: "Coefficient of determination at least 0.5."
+    basis: D
+    source: "Results are also reported without this filter, because it can bias gamma upwards."
+    min_r_squared: 0.5
+
+# Boundary-layer / free-troposphere assignment (Section 8.4). The 300 m gap is D.
+boundary_layer:
+  definition: "Diurnal maximum of ERA5 boundary-layer height on the overpass day (He et al., 2026)."
+  ft_min_gap_above_blh_m: 300
+  ft_min_gap_basis: D
+  sensitivity_elevated_top_agl_km: 2.5
+  sensitivity_source: "Kim et al. (2018)."
