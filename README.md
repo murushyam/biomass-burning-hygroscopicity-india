@@ -1,6 +1,6 @@
 # Does the hygroscopicity of biomass-burning aerosol over India change with altitude?
 
-A constraint from CALIOP and ERA5 humidograms, 2006 to 2023. This repository holds a research proposal prepared for *Atmospheric Chemistry and Physics* (ACP), together with a code scaffold for the planned analysis.
+A constraint from CALIOP and ERA5 humidograms, 2006 to 2023. This repository holds a research proposal , together with a code scaffold for the planned analysis.
 
 **Author:** Shyam Sunder Murugesan Sellammal, NIT Rourkela
 **ORCID:** [https://orcid.org/0000-0002-9964-6199](https://orcid.org/0000-0002-9964-6199)
